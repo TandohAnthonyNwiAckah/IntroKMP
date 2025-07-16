@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -45,13 +46,11 @@ fun App(
                 text = stringResource(  Res.string.app_name),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            PaddingValues(
-                vertical = 32.dp,
-            )
+            Row(modifier = Modifier.padding(bottom = 16.dp)) {
 
-            Row {
                 Image(painterResource(Res.drawable.ic_battery), null)
 
                 Text(
