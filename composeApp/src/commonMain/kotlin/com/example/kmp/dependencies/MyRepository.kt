@@ -1,12 +1,12 @@
 package com.example.kmp.dependencies
 
 interface MyRepository {
-    fun helloWorld(): String
+    fun helloKoin(): String
 }
 
 
 class MyRepositoryImpl(private val dbClient: DbClient) : MyRepository {
-    override fun helloWorld(): String {
-        return  "Hello World!"
+    override fun helloKoin(): String {
+        return  "Welcome to DI with Koin!"
     }
 }
