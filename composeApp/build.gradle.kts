@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -32,7 +33,7 @@ kotlin {
         }
 
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -43,9 +44,9 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     jvm("desktop")
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         outputModuleName.set("composeApp")
@@ -65,15 +66,17 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            implementation(libs.ktor.client.okhttp)
         }
 
         commonMain.dependencies {
@@ -91,6 +94,8 @@ kotlin {
             implementation(libs.lifecycle.viewmodel)
             implementation(libs.navigation.compose)
 
+            implementation(libs.bundles.ktor)
+
         }
 
         commonTest.dependencies {
@@ -102,10 +107,18 @@ kotlin {
             implementation(compose.uiTest)
 
         }
+
+
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
             implementation(libs.oshi.core)
+
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
